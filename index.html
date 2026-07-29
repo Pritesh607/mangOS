@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.1.200/pdf.min.mjs"
+        type="module"></script>
+</head>
+<html>
+
+<body id="bg" style="background-image: url(./assets/homunuculus.jpg); background-size: cover;background-repeat: no-repeat;">
+
+    <div class="window" id="window" style="top: 50%;left:50%;transform: translate(-50%,-50%);">
+        <div class="windowheader" id="windowheader">
+            <p class="headertext"><b>Welcome</b></p>
+            <p class="closebutton" id="windowclose"><b>X</b></p>
+        </div>
+        <div style="border: solid;border-width: 1px;background-color: white;margin-top: 28px;">
+            <h1 style="margin: 10px;margin-top: 15px; font-family :Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-style: italic;">Welcome to mangOS</h1>
+            <p style="margin-left: 10px;">HELLO WORLD</p>
+        </div>
+    </div>
+    
+    <div class="bar" style="padding: 5px;width: 100wh;">
+        <p style="margin: 10px;margin-top: 18px;">
+            mangOS
+        </p>
+        <div style="display: flex;justify-content: center;gap: 10px;">
+            <div id="notesIcon" style="text-align: center;padding: 0px;width: fit-content;">
+                <img src="./assets/noteslogo.png" style="width: 64px;height: 64px;border-radius: 16px;border: 2px;border-color: black;">
+                <!-- <p style="margin: 0px; color: #000;filter: drop-shadow(0 0 8px black);">Notes</p> -->
+            </div>
+            <div id="readerIcon" style="text-align: center;padding: 0px;width: fit-content;">
+                <img src="./assets/readerlogo.png" style="width: 64px;height: 64px;border-radius: 16px;border: 2px;border-color: black;">
+                <!-- <p style="margin: 0px; color: #000;filter: drop-shadow(0 0 8px black);">Manga</p> -->
+            </div>
+            <div id="wallpaperIcon" style="text-align: center;padding: 0px;width: fit-content;">
+                <img src="./assets/wallpaperlogo.png" style="width: 64px;height: 64px;border-radius: 16px;border: 2px;border-color: black;">
+                <!-- <p style="margin: 0px; color: #000;filter: drop-shadow(0 0 8px black);">Wallpaper</p> -->
+            </div>
+            <div id="musicIcon" style="text-align: center;padding: 0px;width: fit-content;">
+                <img src="./assets/musiclogo.png" style="width: 64px;height: 64px;border-radius: 16px;border: 2px;border-color: black;">
+                <!-- <p style="margin: 0px; color: #000;filter: drop-shadow(0 0 8px black);">Wallpaper</p> -->
+            </div>
+        </div>
+        <div>
+            <p id="time" style="width: 250px;">
+                Time:
+            </p>
+        </div>
+    </div>
+
+    <!-- <div id="desktopApps" style="padding-top: 16px;user-select: none;display: flex;">
+        <div id="notesIcon" style="text-align: center;padding: 16px;width: fit-content;">
+            <img src="./assets/noteslogo.png" style="width: 64px;height: 64px;border-radius: 16px;border: 2px;border-color: black;">
+            <p style="margin: 0px; color: #000;filter: drop-shadow(0 0 8px black);">Notes</p>
+        </div>
+        <div id="readerIcon" style="text-align: center;padding: 16px;width: fit-content;">
+            <img src="./assets/readerlogo.png" style="width: 64px;height: 64px;border-radius: 16px;border: 2px;border-color: black;">
+            <p style="margin: 0px; color: #000;filter: drop-shadow(0 0 8px black);">Manga</p>
+        </div>
+        <div id="wallpaperIcon" style="text-align: center;padding: 16px;width: fit-content;">
+            <img src="./assets/wallpaperlogo.png" style="width: 64px;height: 64px;border-radius: 16px;border: 2px;border-color: black;">
+            <p style="margin: 0px; color: #000;filter: drop-shadow(0 0 8px black);">Wallpaper</p>
+        </div>
+    </div> -->
+
+    
+    <div class="window" id="notes" style="top: calc(50% - 240px);left:calc(50% - 260px);display: none;">
+        <div class="windowheader" id="notesheader">
+            <p class="headertext">Notes</p>
+            <p class="closebutton" id="notesclose"><b>X</b></p>
+        </div>
+        <div style="border: solid;border-width: 1px;background-color: white;margin-top: 28px;">
+            <textarea name="text" rows="10" cols="20" placeholder="Start typing here...." style="resize: none;width: 99%;"></textarea>
+        </div>
+    </div>
+
+    
+    <div class="window" id="reader" style="top: 50%;left:50%;transform: translate(-50%,-50%);width: max-content;display: none;">
+        <div class="windowheader" id="readerheader">
+            <p class="headertext"><b>Reader</b></p>
+            <p class="closebutton" id="readerclose"><b>X</b></p>
+        </div>
+        <div style="border: solid;border-width: 1px;background-color: white;margin-top: 28px;">
+            <canvas id="the-canvas"></canvas>
+        </div>
+        <div style="display: flex;justify-content: space-between;">
+            <button type="button" id="backbutton" style="size: 12px;">Back</button>
+            <button type="button" id="nextbutton">Next</button>
+        </div>
+    </div>
+
+    
+
+    <div class="window" id="wallpaper" style="top: 50%;left:50%;transform: translate(-50%,-50%);">
+        <div class="windowheader" id="wallpaperheader">
+            <p class="headertext"><b>Wallpaper</b></p>
+            <p class="closebutton" id="wallpaperclose"><b>X</b></p>
+        </div>
+        <div style="border: solid;border-width: 1px;background-color: white;margin-top: 28px;display: flex;flex-direction: column;gap: 10px;padding: 10px;">
+            <div style="display: flex;">
+                <img src="./assets/homunuculus.jpg" style="width: 192px;height: 108px;padding: 12px;border: solid;border-width: 1px;">
+                <button type="button" id="wallpaper1" style="width: 40px;height: 20px;top: 50%;left: 77%;">Tap</button>
+            </div>
+            <div style="display: flex;">
+                <img src="./assets/wallhaven-og2zzl.jpg" style="width: 192px;height: 108px;padding: 12px;border: solid;border-width: 1px;">
+                <button type="button" id="wallpaper2" style="width: 40px;height: 20px;top: 50%;left: 77%;">Tap</button>
+            </div>
+            <div style="display: flex;">
+                <img src="./assets/wallhaven-jevmdp.jpg" style="width: 192px;height: 108px;padding: 12px;border: solid;border-width: 1px;">
+                <button type="button" id="wallpaper3" style="width: 40px;height: 20px;top: 50%;left: 77%;">Tap</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- <audio>
+        <source src="./assets/Tokyo Ghoul Opening - Unravel_default.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio> -->
+
+    <!-- <div>
+        <button type="button" id="audio" onclick="play()">PLAY</button>
+        <button type="button" id="audio" onclick="pause()">PAUSE</button>
+    </div> -->
+
+    <div class="window" id="music" style="top: calc(50% - 240px);left:calc(50% + 40px);">
+        <div class="windowheader" id="musicheader">
+            <p class="headertext"><b>Music</b></p>
+            <p class="closebutton" id="musicclose"><b>X</b></p>
+        </div>
+        <div style="border: solid;border-width: 1px;background-color: white;margin-top: 28px;padding: 12px;text-align: center;">
+            <p id="songtitle" style="margin: 0px 0px 12px 0px;"><b>Unravel</b> - Tokyo Ghoul OP</p>
+            <div style="display: flex;justify-content: center;gap: 10px;">
+                <button type="button" id="musicplay" onclick="play()">Play</button>
+                <button type="button" id="musicpause" onclick="pause()">Pause</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- <embed src="./assets/One-Punch Man Chapters 101-105.pdf" width="100%" height="600px" title="PDF Viewer"> -->
+
+    <script src="script.js"></script>
+    <script type="module">
+        import * as pdfjsLib from
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.min.mjs';
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.worker.min.mjs';
+
+        const pdf = await pdfjsLib.getDocument("./assets/One-Punch Man Chapter 101.pdf").promise;
+    
+        var pageNumber = 1;
+        var loadingTask = pdfjsLib.getDocument("./assets/One-Punch Man Chapter 101.pdf");
+        function render(){
+            loadingTask.promise.then(function(pdf) {
+                console.log('PDF loaded');
+    
+                // Fetch the first page
+                //  if(pageNumber >0 ){
+                   
+                // }
+                pdf.getPage(pageNumber).then(function(page) {
+                console.log('Page loaded');
+    
+                var scale = 1;
+                var viewport = page.getViewport({scale: scale});
+    
+                // Prepare canvas using PDF page dimensions
+                var canvas = document.getElementById('the-canvas');
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+    
+                // Render PDF page into canvas context
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+                renderTask.promise.then(function () {
+                    console.log('Page rendered');
+                });
+                });
+            }, function (reason) {
+                // PDF loading error
+                console.error(reason);
+            });
+        }
+        render();
+
+        let timeout;
+        document.getElementById("nextbutton").addEventListener("click",function() {
+            if (timeout) clearTimeout(timeout);
+          timeout = setTimeout(() => {
+                if(pageNumber < pdf.numPages){
+                    pageNumber = pageNumber + 1;
+                    console.log(pageNumber);
+                    render();
+                }
+            },200);
+        });
+        document.getElementById("backbutton").addEventListener("click",function() {
+            if(pageNumber > 1){
+                pageNumber = pageNumber - 1;
+            }
+            console.log(pageNumber);
+            render();
+        });
+
+        document.getElementById("wallpaper1").addEventListener("click", function() {
+            document.getElementById("bg").style.cssText = "background-image: url(./assets/homunuculus.jpg); background-size: cover;background-repeat: no-repeat;";
+            console.log("changed");
+        });
+        document.getElementById("wallpaper2").addEventListener("click", function() {
+            document.getElementById("bg").style.cssText = "background-image: url(./assets/wallhaven-og2zzl.jpg); background-size: cover;background-repeat: no-repeat;";
+            console.log("changed");
+        });
+        document.getElementById("wallpaper3").addEventListener("click", function() {
+            document.getElementById("bg").style.cssText = "background-image: url(./assets/wallhaven-jevmdp.jpg); background-size: cover;background-repeat: no-repeat;";
+            console.log("changed");
+        });
+        // function nextpage() {
+        //     pageNumber = pageNumber + 1;
+        //     console.log(pageNumber);
+        //     render();
+        // }
+    </script>
+        
+</body>
+    
+</html>
